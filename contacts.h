@@ -1,19 +1,13 @@
 #ifndef CONTACTS_H
 #define CONTACTS_H
 
-struct contactStruct
-{
-    char firstName[30];
-    char lastName[50];
-    char phoneNumber[10];
-};
+struct ContactStruct{ char firstname[30], lastname[50], phonenumber[10] }; 
+typedef struct ContactStruct Contact;
 
-typedef struct contactStruct contact;
-
-void PrintContact();
-void PrintAllContacts();
-void AddContact();
-void RemoveContact();
-void FindContact();
+void PrintContact(Contact *contact);
+void PrintAllContacts(Contact *contac);
+void RemoveContact(Contact *contact);
+void AddContact(Contact *contacs[], int length);
+void FindContact(Contact *contacs[], int length);
 
 #endif //CONTACTS_H
