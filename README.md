@@ -2,8 +2,6 @@
 
 todo:
 
-- [ ] test
-
 - [X] print contacts
 - [ ] add contacts
 - [ ] delete contacts 
