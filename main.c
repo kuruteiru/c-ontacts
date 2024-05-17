@@ -6,7 +6,7 @@ int readChar() {
     int character = getchar();
 
     if (character == EOF) {
-        if (ferror(stdin)) perror("Error reading input");
+        if (ferror(stdin)) printf("Error reading input");
         else printf("End of input detected.\n");
         return 1;
     }

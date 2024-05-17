@@ -25,27 +25,56 @@ void removeContact(Contact *contact) {
 void addContact(Contact *contacts[], int length) {
     if (contacts == NULL) return;
 
-    printf("len %d\n", length);
-
-    int *index = NULL;
+    int index = -1;
     for (int i = 0; i < length; i++) {
-        printf("check space\n");
         if (contacts[i] != NULL) continue;
-        printf("found space\n");
         index = i;
         break;
     }
-    printf("check if is space\n");
-    if (index == NULL) return;
+    if (index == -1) return;
 
     Contact *contact = (Contact*) malloc(sizeof(Contact));
     if (contact == NULL) return;
     
-    printf("add contact\nname: ");
-    if (fgets(contact->firstName, sizeof(contact->firstName), stdin) != NULL) {
-        perror("Error reading input");
+    printf("add contact\nfirst name: ");
+    if (fgets(contact->firstName, sizeof(contact->firstName), stdin) == NULL) {
+        printf("Error reading input");
         return;
     }
+
+    size_t len = strlen(contact->firstName);
+    printf("len %d", len);
+    if (len > 0 && contact->firstName[len - 1] == '\n') {
+        contact->firstName[len - 1] = '\0';
+    }
+
+    printf("\nlast name: ");
+    if (fgets(contact->lastName, sizeof(contact->lastName), stdin) == NULL) {
+        printf("Error reading input");
+        return;
+    }
+
+    len = strlen(contact->lastName);
+    if (len > 0 && contact->lastName[len - 1] == '\n') {
+        contact->lastName[len - 1] = '\0';
+    }
+
+    printf("\nphone number: ");
+    if (fgets(contact->phoneNumber, sizeof(contact->phoneNumber), stdin) == NULL) {
+        printf("Error reading input");
+        return;
+    }
+
+    len = strlen(contact->phoneNumber);
+    if (len > 0 && contact->phoneNumber[len - 1] == '\n') {
+        contact->phoneNumber[len - 1] = '\0';
+    }
+
+    // printf("name: %s", contact->firstName);
+    // printf("name: %s", contact->lastName);
+    // printf("name: %s", contact->phoneNumber);
+
+    contacts[index] = contact;
 }
 
 void findContact(Contact *contacts[], size_t length) {
