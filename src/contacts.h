@@ -7,7 +7,7 @@ typedef struct ContactStruct Contact;
 void printContact(Contact *contact);
 void printAllContacts(Contact *contacts[], size_t length);
 void removeContact(Contact *contact);
-void addContact(Contact *contacts[], int length);
-void findContact(Contact *contacts[], size_t length);
+void addContact(Contact *contacts[], size_t length);
+Contact* findContact(Contact *contacts[], size_t length, char *name);
 
 #endif //CONTACTS_H

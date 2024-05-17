@@ -22,7 +22,7 @@ void removeContact(Contact *contact) {
 
 }
 
-void addContact(Contact *contacts[], int length) {
+void addContact(Contact *contacts[], size_t length) {
     if (contacts == NULL) return;
 
     int index = -1;
@@ -41,42 +41,46 @@ void addContact(Contact *contacts[], int length) {
         printf("Error reading input");
         return;
     }
-
     size_t len = strlen(contact->firstName);
-    printf("len %d", len);
-    if (len > 0 && contact->firstName[len - 1] == '\n') {
+    if (len > 0 && contact->firstName[len - 1] == '\n')
         contact->firstName[len - 1] = '\0';
-    }
 
     printf("\nlast name: ");
     if (fgets(contact->lastName, sizeof(contact->lastName), stdin) == NULL) {
         printf("Error reading input");
         return;
     }
-
     len = strlen(contact->lastName);
-    if (len > 0 && contact->lastName[len - 1] == '\n') {
+    if (len > 0 && contact->lastName[len - 1] == '\n') 
         contact->lastName[len - 1] = '\0';
-    }
 
     printf("\nphone number: ");
     if (fgets(contact->phoneNumber, sizeof(contact->phoneNumber), stdin) == NULL) {
         printf("Error reading input");
         return;
     }
-
     len = strlen(contact->phoneNumber);
-    if (len > 0 && contact->phoneNumber[len - 1] == '\n') {
+    if (len > 0 && contact->phoneNumber[len - 1] == '\n') 
         contact->phoneNumber[len - 1] = '\0';
-    }
-
-    // printf("name: %s", contact->firstName);
-    // printf("name: %s", contact->lastName);
-    // printf("name: %s", contact->phoneNumber);
-
+    
     contacts[index] = contact;
 }
 
-void findContact(Contact *contacts[], size_t length) {
+Contact* findContact(Contact *contacts[], size_t length, char *name) {
+    if (contacts == NULL) return NULL;
+    
+    for (size_t i = 0; i < length; i++) {
+        if (contacts[i] == NULL) continue;
 
+        if (contacts[i]->firstName != NULL) {
+            if (strcmp(contacts[i]->firstName, name) == 0)
+                return contacts[i];
+        }
+        if (contacts[i]->lastName != NULL) {
+            if (strcmp(contacts[i]->lastName, name) == 0)
+                return contacts[i];
+        }
+    }
+
+    return NULL;
 }

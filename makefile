@@ -2,6 +2,6 @@ clean:
 	rm $(wildcard *.o) $(wildcard *.exe)
 	@echo "removed .o and .exe files"
 
-contacts: main.c contacts.c
-	gcc $^ -o $@
+contacts: src/main.c src/contacts.c
+	gcc -g $^ -o build/$@
 	@echo "$^ compiled into $@"

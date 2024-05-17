@@ -1,12 +1,13 @@
 #include <stdio.h>
 #include <ctype.h>
+#include <string.h>
 #include "contacts.h"
 
 int readChar() {
     int character = getchar();
 
     if (character == EOF) {
-        if (ferror(stdin)) printf("Error reading input");
+        if (ferror(stdin)) printf("Error while reading input");
         else printf("End of input detected.\n");
         return 1;
     }
@@ -16,6 +17,16 @@ int readChar() {
     }
 
     return character;
+}
+
+void readString(char *buffer, size_t size) {
+    if (fgets(buffer, size, stdin) != NULL) {
+        size_t length = strlen(buffer);
+        if (length > 0 && buffer[length-1] == '\n') 
+            buffer[length-1] = '\0';
+        return;
+    }
+    printf("Error while reading input");
 }
 
 int main() {
@@ -48,6 +59,7 @@ int main() {
         
         printf("\e[1;1H\e[2J");
 
+        char name[50];
         switch(selectedItem) {
             case 'a':
                 printf("add\n");
@@ -55,14 +67,19 @@ int main() {
                 break; 
             case 'p':
                 printAllContacts(contacts, length);
-                
                 printf("input anything to continue: ");
-                char con = readChar(); 
-        
+                readChar(); 
                 break; 
             case 's':
-                printf("search\n");
-                //findContact();
+                printf("search for: ");
+                readString(name, sizeof(name));
+                Contact *contact = findContact(contacts, length, name);
+                if (contact == NULL) {
+                    printf("contact has not been found");
+                    break;
+                }
+                printf("contact found:\n");
+                printContact(contact);
                 break; 
             case 'e':
                 printf("exit");
